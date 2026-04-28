@@ -184,14 +184,6 @@ body,
 }
 
 
-.botao-voltar {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 40px;
-  cursor: pointer;
-}
-
 /* CONTEÚDO PRINCIPAL (BRANCO) */
 .dashboard-main {
   max-width: 1000px;
@@ -267,15 +259,4 @@ body,
 /* Tamanho específico para os ícones dentro dos cards */
 .icone-grande {
   font-size: 110px !important; /* Ajuste o tamanho */
-}
-
-/* Ajuste no botão voltar para o ícone não ficar torto */
-.botao-voltar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.botao-voltar .material-symbols-outlined {
-  font-size: 60px;
 }

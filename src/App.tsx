@@ -42,9 +42,6 @@ function App() {
 
               {/* NOVO GRUPO PARA COLAR LOGO E BOTÃO */}
               <div className="grupo-esquerda-header">
-                <button className="botao-voltar" onClick={() => setTela('config')}>
-                  <span className="material-symbols-outlined">arrow_top_left</span>
-                </button>
                 <h1 className="logo-dashboard">DevBank</h1>
               </div>
 
