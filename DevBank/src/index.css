@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #d9d9d9;
+}
+
+.container {
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  background-color: #0d3b8e;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+}
+
+.header h1 {
+  font-size: 48px;
+  margin: 0;
+}
+
+.user-box {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* TRANSAÇÕES */
+.transactions {
+  margin: 40px auto;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* TOPO DO CARD */
+.card-header {
+  background-color: #0d3b8e;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* CORPO DO CARD */
+.card-body {
+  background-color: #5c7fb3;
+  padding: 20px;
+  font-size: 16px;
+}
+
+/* BOTÃO */
+.back-button {
+  display: block;
+  margin: 40px auto;
+  padding: 15px 40px;
+  background-color: #0d3b8e;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:hover {
+  opacity: 0.9;
+}
