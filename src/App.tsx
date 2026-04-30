@@ -112,7 +112,7 @@ function App() {
             </div>
           </main>
         </div> 
-          {/* HEADER */}
+          {/* TELA 3: REGISTRO  */}
     <div className="header">
       <h1>DevBank</h1>
 
