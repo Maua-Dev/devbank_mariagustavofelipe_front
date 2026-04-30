@@ -113,6 +113,7 @@ function App() {
           </main>
         </div> 
           {/* TELA 3: REGISTRO  */}
+      {/* CABEÇALHO DA TELA */}
     <div className="header">
       <h1>DevBank</h1>
 
@@ -124,7 +125,49 @@ function App() {
     </div>
 
       )}
+    </div>  {/* TRANSAÇÕES */}
+    <div className="transactions">
+
+      <div className="card">
+        <div className="card-header">Saque 🐷</div>
+        <div className="card-body">
+          <p>
+            <strong>Valor:</strong> R$ 00000{" "}
+            <strong>Data:</strong> 18-03-2026 / 15:30:00{" "}
+            <strong>Saldo:</strong> R$ 00000
+          </p>
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="card-header">Depósito 💵</div>
+        <div className="card-body">
+          <p>
+            <strong>Valor:</strong> R$ 00000{" "}
+            <strong>Data:</strong> 18-03-2026 / 15:30:00{" "}
+            <strong>Saldo:</strong> R$ 00000
+          </p>
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="card-header">Saque 🐷</div>
+        <div className="card-body">
+          <p>
+            <strong>Valor:</strong> R$ 00000{" "}
+            <strong>Data:</strong> 18-03-2026 / 15:30:00{" "}
+            <strong>Saldo:</strong> R$ 00000
+          </p>
+        </div>
+      </div>
+
     </div>
+
+    {/* BOTÃO */}
+    <button className="back-button">
+      Voltar
+    </button>
+  </>
   );
 }
 
