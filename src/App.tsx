@@ -1,55 +1,88 @@
-import { useState } from 'react'
+import { useState } from 'react';
 // @ts-ignore
-import './App.css'
+import './App.css';
+
+interface Usuario {
+  name: string;
+  agency: string;
+  account: string;
+  current_balance: number;
+}
 
 function App() {
-  const [tela, setTela] = useState('config');
+  const [tela, setTela] = useState<'config' | 'conta'>('config');
   const [apiUrl, setApiUrl] = useState('');
+  const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [carregando, setCarregando] = useState(false);
 
-  const lidarComEntrada = () => {
+  const conectarApi = async () => {
     if (apiUrl.trim() === "") {
       alert("O campo da API endpoint é obrigatório!");
-    } else {
+      return;
+    }
+
+    setCarregando(true);
+    try {
+      // Faz a chamada para o endpoint
+      const resposta = await fetch(apiUrl);
+      if (!resposta.ok) throw new Error("Usuário não encontrado");
+      const dados = await resposta.json();
+
+      setUsuario(dados);
       setTela('conta');
+    } catch (erro) {
+      alert("Erro ao conectar no endpoint: " + erro);
+    } finally {
+      setCarregando(false);
     }
   };
 
   return (
     <div className="pagina-fundo-azul">
+      {/* TELA 1: CONFIGURAÇÃO (LOGIN) */}
       {tela === 'config' && (
         <div className="container-config">
           <h1 className="logo-main">DevBank</h1>
+
           <div className="azul-claro-card card-config">
-            <h2>Configuração API Endpoint</h2>
+            <h2>Configuração</h2>
             <hr className="linha-separadora" />
-            <p>Por favor coloque a sua API endpoint para prosseguir</p>
+            <p>Digite o API Endpoint para prosseguir:</p>
             <input
               type="text"
-              placeholder="https://link-da-api..."
+              className="input-url"
+              placeholder="https://api.exemplo.com"
               value={apiUrl}
               onChange={(e) => setApiUrl(e.target.value)}
-              className="input-url"
             />
-            <button className="botao-padrao btn-entrar" onClick={lidarComEntrada}>Entrar</button>
+            <button
+              className="botao-padrao btn-entrar"
+              onClick={conectarApi}
+              disabled={carregando}
+            >
+              {carregando ? "..." : "ENTRAR"}
+            </button>
           </div>
         </div>
       )}
 
+      {/* TELA 2: DASHBOARD (CONTA) */}
       {tela === 'conta' && (
         <div className="dashboard-container">
           <header className="dashboard-header">
             <div className="header-content">
 
-              {/* NOVO GRUPO PARA COLAR LOGO E BOTÃO */}
               <div className="grupo-esquerda-header">
+                <button onClick={() => setTela('config')} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                  <span className="material-symbols-outlined">arrow_back</span>
+                </button>
                 <h1 className="logo-dashboard">DevBank</h1>
               </div>
 
-              {/* O CARD DE INFO CONTINUA AQUI, O SPACE-BETWEEN JOGA ELE PARA A DIREITA */}
               <div className="info-usuario-card">
-                <p>Nome: Felipe Andersen</p>
-                <p>Agência: 0000</p>
-                <p>Conta: 00000-0</p>
+                <p>Nome: {usuario?.name}</p>
+                <p>Agência: {usuario?.agency}</p>
+                <p>Conta: {usuario?.account}</p>
               </div>
 
             </div>
@@ -57,29 +90,24 @@ function App() {
 
           <main className="dashboard-main">
             <div className="barra-pergunta">
-              <span className="txt-pergunta">O que deseja fazer?</span>
+              <p className="txt-pergunta">O que deseja fazer?</p>
               <div className="card-saldo-horizontal">
-                Saldo Atual: 1000
+                Saldo: R$ {usuario?.current_balance.toFixed(2).replace('.', ',')}
               </div>
             </div>
 
             <div className="grid-cards-verticais">
-              {/* CARD DEPOSITAR (Símbolo de pagamento para baixo) */}
               <div className="card-acao-vertical">
-                <span className="material-symbols-outlined icone-grande">payment_arrow_down</span>
-                <span>Depositar</span>
+                <span className="material-symbols-outlined icone-grande">payments</span>
+                <p>Depositar</p>
               </div>
-
-              {/* CARD SACAR (Porquinho) */}
               <div className="card-acao-vertical">
                 <span className="material-symbols-outlined icone-grande">savings</span>
-                <span>Sacar</span>
+                <p>Sacar</p>
               </div>
-
-              {/* CARD TRANSAÇÕES (Histórico) */}
               <div className="card-acao-vertical">
                 <span className="material-symbols-outlined icone-grande">history</span>
-                <span>Transações</span>
+                <p>Extrato</p>
               </div>
             </div>
           </main>
@@ -89,4 +117,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
