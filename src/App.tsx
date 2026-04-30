@@ -111,7 +111,18 @@ function App() {
               </div>
             </div>
           </main>
-        </div>
+        </div> 
+          {/* HEADER */}
+    <div className="header">
+      <h1>DevBank</h1>
+
+      <div className="user-box">
+        <p><strong>Nome:</strong> Felipe Andersen</p>
+        <p><strong>Agência:</strong> 0000</p>
+        <p><strong>Conta:</strong> 00000-0</p>
+      </div>
+    </div>
+
       )}
     </div>
   );
