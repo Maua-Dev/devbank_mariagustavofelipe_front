@@ -8,16 +8,12 @@
   font-family: Arial, sans-serif;
 }
 
-html,
-body,
-#root {
+html, body, #root {
   width: 100%;
   height: 100%;
   background-color: #002884;
-  /* Garante fundo azul em tudo */
 }
 
-/* Container que centraliza as telas no meio da página */
 .pagina-fundo-azul {
   min-height: 100vh;
   width: 100%;
@@ -30,8 +26,6 @@ body,
 /* ========================================= */
 /* 2. COMPONENTES REUTILIZÁVEIS              */
 /* ========================================= */
-
-/* Logo principal (DevBank) */
 .logo-main {
   color: white;
   font-size: 85px;
@@ -41,7 +35,6 @@ body,
   text-align: center;
 }
 
-/* Card azul claro padrão */
 .azul-claro-card {
   background-color: #4F76B3;
   color: white;
@@ -58,7 +51,6 @@ body,
   border-top: 2px solid white;
 }
 
-/* Botão padrão (Entrar / Ações) */
 .botao-padrao {
   background-color: #003B73;
   color: white;
@@ -68,11 +60,6 @@ body,
   cursor: pointer;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
   transition: 0.2s;
-}
-
-.botao-padrao:hover {
-  background-color: #002884;
-  transform: translateY(-2px);
 }
 
 /* ========================================= */
@@ -98,15 +85,10 @@ body,
   border-radius: 10px;
   border: none;
   font-size: 14px;
-  color: #000 !important;
+  color: #000;
   background-color: white;
   outline: none;
   margin-top: 10px;
-}
-
-.input-url:focus {
-  outline: 2px solid #3584D0;
-  box-shadow: 0px 0px 8px rgba(53, 132, 208, 0.5);
 }
 
 .btn-entrar {
@@ -118,17 +100,14 @@ body,
 /* ========================================= */
 /* 4. TELA 2: CONTA (DASHBOARD)              */
 /* ========================================= */
-
-/* ESTRUTURA DASHBOARD */
 .dashboard-container {
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: white; /* Fundo do dashboard é branco */
+  background-color: white; /* Corrigido para branco conforme Imagem 2 */
 }
 
-/* HEADER AZUL */
 .dashboard-header {
   background-color: #002884;
   width: 100%;
@@ -141,31 +120,18 @@ body,
   margin: 0 auto;
   display: flex;
   align-items: center;
-  /* Joga o grupo da esquerda (botão+logo) para um lado e o card para o outro */
   justify-content: space-between; 
-  padding: 0 140px; /* Dá um espaçamento lateral para o conteúdo não ficar colado nas bordas */
+  padding: 0 140px;
   width: 100%;
 }
 
-/* Criamos um container para agrupar o botão e o logo colados */
 .grupo-esquerda-header {
   display: flex;
   align-items: center;
-  gap: 20px; /* Espaço entre a seta e o texto DevBank */
-}
-
-/* Garante que o botão de voltar e o card de info não "esmaguem" o logo */
-.header-content > button {
-  flex: 0;
-  display: flex;
-  justify-content: center;
-  background: none;
-  border: none;
-  cursor: pointer;
+  gap: 20px;
 }
 
 .info-usuario-card {
-  /* O card fica quietinho na direita por causa do space-between */
   background-color: #4F76B3;
   padding: 10px 15px;
   border-radius: 10px;
@@ -175,7 +141,6 @@ body,
 }
 
 .logo-dashboard {
-  /* Removemos position: absolute e flex: 1 */
   font-size: 50px;
   font-weight: bold;
   color: white;
@@ -183,8 +148,6 @@ body,
   line-height: 1;
 }
 
-
-/* CONTEÚDO PRINCIPAL (BRANCO) */
 .dashboard-main {
   max-width: 1000px;
   margin: 40px auto;
@@ -195,7 +158,6 @@ body,
   gap: 40px;
 }
 
-/* BARRA DE SALDO AZUL MARINHO */
 .barra-pergunta {
   background-color: #01368B;
   border-radius: 10px;
@@ -216,7 +178,6 @@ body,
   font-size: 18px;
 }
 
-/* CARDS VERTICAIS */
 .grid-cards-verticais {
   display: grid;
   grid-template-columns: 330px 330px 330px;
@@ -241,105 +202,81 @@ body,
   transition: 0.3s;
 }
 
-.card-acao-vertical:hover {
-  transform: scale(1.05);
-  background-color: #002884;
-}
+.icone-grande { font-size: 110px !important; }
 
-/* Ajuste global para os ícones do Google */
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24;
-  color: white; /* Garante que os ícones fiquem brancos */
-}
-
-/* Tamanho específico para os ícones dentro dos cards */
-.icone-grande {
-  font-size: 110px !important; /* Ajuste o tamanho */
-}
-
-/* ===================================== */ 
-/*      TELA 3 REGISTRO TRANSAÇÕES       */
-/* ===================================== */
-/* FUNDO */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #d9d9d9;
-}
-
-/* HEADER */
+/* ========================================= */
+/* 5. TELA 3: REGISTRO (ESTRUTURA DELA)      */
+/* ========================================= */
 .header {
-  background-color: #0d3b8e;
-  color: white;
+  background-color: #002884;
+  width: 100%;
+  padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
+  color: white;
 }
 
-.header h1 {
-  font-size: 48px;
-  margin: 0;
-}
-
-/* BOX USUÁRIO */
 .user-box {
-  background-color: rgba(255, 255, 255, 0.25);
-  padding: 15px;
+  background-color: #4F76B3;
+  padding: 10px 15px;
   border-radius: 10px;
-  line-height: 1.5;
+  font-size: 13px;
+  color: white;
 }
 
-/* LISTA */
 .transactions {
-  margin: 40px auto;
-  width: 60%;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 0;
+  background-color: #FFFFFF; 
+  flex: 1;
+  width: 100%;
 }
 
-/* CARD */
 .card {
+  width: 850px;
   border-radius: 15px;
   overflow: hidden;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
 }
 
-/* TOPO CARD */
 .card-header {
-  background-color: #0d3b8e;
+  background-color: #002884;
   color: white;
-  padding: 12px;
+  padding: 15px;
   text-align: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 22px;
 }
 
-/* CORPO CARD */
 .card-body {
-  background-color: #5c7fb3;
-  padding: 20px;
-  font-size: 16px;
+  background-color: #4F76B3;
+  color: white;
+  padding: 30px;
+  text-align: center;
 }
 
-/* BOTÃO */
+.card-body p {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-size: 19px;
+}
+
 .back-button {
-  display: block;
-  margin: 40px auto;
-  padding: 15px 50px;
-  background-color: #0d3b8e;
+  background-color: #003B73;
   color: white;
   border: none;
-  border-radius: 15px;
-  font-size: 18px;
+  border-radius: 40px;
+  padding: 15px 80px;
+  font-weight: bold;
   cursor: pointer;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+  font-size: 18px;
+  margin: 20px 0;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
 }
 
-.back-button:hover {
-  opacity: 0.9;
-}
+.material-symbols-outlined { color: white; }
