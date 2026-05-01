@@ -211,7 +211,14 @@ function App() {
 
       <div className="actions">
         <button onClick={() => setTela('conta')}>Voltar</button>
-        <button>Depositar</button>
+         <button
+  onClick={() => {
+    registrarTransacao("Depósito", total);
+    setTela("extrato");
+  }}
+>
+  Depositar
+</button>
       </div>
 
     </main>
