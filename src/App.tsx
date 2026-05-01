@@ -26,7 +26,10 @@ function App() {
   const [tela, setTela] = useState<'config' | 'conta' | 'extrato' | 'saque' | 'deposito'>('config');
   const [apiUrl, setApiUrl] = useState('');
   const [usuario, setUsuario] = useState<Usuario | null>(null);
-
+  const [transacoes, setTransacoes] = useState<
+  { tipo: string; valor: number; data: string }[]
+>([]);
+  
   const conectarApi = async () => {
     try {
       const resposta = await fetch(apiUrl);
