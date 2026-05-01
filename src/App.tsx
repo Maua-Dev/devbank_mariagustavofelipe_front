@@ -29,6 +29,15 @@ function App() {
   const [transacoes, setTransacoes] = useState<
   { tipo: string; valor: number; data: string }[]
 >([]);
+  const registrarTransacao = (tipo: string, valor: number) => {
+  const nova = {
+    tipo,
+    valor,
+    data: new Date().toLocaleString("pt-BR"),
+  };
+
+  setTransacoes((prev) => [...prev, nova]);
+};
   
   const conectarApi = async () => {
     try {
