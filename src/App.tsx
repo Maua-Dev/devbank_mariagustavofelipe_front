@@ -107,10 +107,7 @@ function App() {
   <p>Depositar</p>
 </div>
               </div>
-              <div className="card-acao-vertical">
-                <span className="material-symbols-outlined icone-grande">savings</span>
-         <div className="card-acao-vertical" onClick={() => setTela('saque')}>
-  <span className="material-symbols-outlined icone-grande">savings</span>
+              
   <p>Sacar</p>
 </div>
               </div>
