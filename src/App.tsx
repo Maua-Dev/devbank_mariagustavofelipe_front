@@ -13,6 +13,7 @@ function App() {
   const [tela, setTela] = useState<'config' | 'conta' | 'extrato' | 'saque' | 'deposito'>('config');
   const [apiUrl, setApiUrl] = useState('');
   const [usuario, setUsuario] = useState<Usuario | null>(null);
+<<<<<<< HEAD
 
   const notas: number[] = [2, 5, 10, 20, 50, 100, 200];
 
@@ -29,6 +30,10 @@ function App() {
     }));
   };
 
+=======
+  
+  
+>>>>>>> c626dc4c6a12cfc40236d0269b5fd58ef94cdc0c
   const conectarApi = async () => {
     try {
       const resposta = await fetch(apiUrl);
@@ -96,9 +101,15 @@ function App() {
               <div className="card-acao-vertical" onClick={() => setTela('deposito')}>
                 <p>Depositar</p>
               </div>
+<<<<<<< HEAD
 
               <div className="card-acao-vertical" onClick={() => setTela('saque')}>
                 <p>Sacar</p>
+=======
+              
+  <p>Sacar</p>
+</div>
+>>>>>>> c626dc4c6a12cfc40236d0269b5fd58ef94cdc0c
               </div>
 
               <div className="card-acao-vertical" onClick={() => setTela('extrato')}>
@@ -112,6 +123,7 @@ function App() {
       {/* TELA 3 */}
       {tela === 'extrato' && (
         <div className="dashboard-container">
+<<<<<<< HEAD
           <div className="transactions">
 
             <div className="card">
@@ -202,7 +214,51 @@ function App() {
         </div>
       )}
 
+=======
+          <header className="dashboard-header">
+            <div className="header-content">
+              <div className="grupo-esquerda-header">
+                <button onClick={() => setTela('conta')} style={{background: 'none', border: 'none', cursor: 'pointer'}}>
+                  <span className="material-symbols-outlined">arrow_back</span>
+                </button>
+                <h1 className="logo-dashboard">DevBank</h1>
+              </div>
+              <div className="info-usuario-card">
+                <p>Nome: {usuario?.name}</p>
+                <p>Agência: {usuario?.agency}</p>
+                <p>Conta: {usuario?.account}</p>
+              </div>
+            </div>
+          </header>
+          
+            <div className="transactions">
+  <div className="card">
+    <div className="card-header">Saque 🐷</div>
+    <div className="card-body">
+      <p>
+        <strong>Valor:</strong> R$ 200,00 
+        <strong>Data:</strong> 18-03-2026 / 15:30:00 
+        <strong>Saldo:</strong> R$ {usuario?.current_balance.toLocaleString('pt-BR')}
+      </p>
+>>>>>>> c626dc4c6a12cfc40236d0269b5fd58ef94cdc0c
     </div>
+  </div>
+
+  <div className="card">
+    <div className="card-header">Depósito 💵</div>
+    <div className="card-body">
+      <p>
+        <strong>Valor:</strong> R$ 500,00 
+        <strong>Data:</strong> 18-03-2026 / 15:30:00 
+        <strong>Saldo:</strong> R$ {usuario?.current_balance.toLocaleString('pt-BR')}
+      </p>
+    </div>
+  </div>
+
+  <button className="back-button" onClick={() => setTela('conta')}>
+    Voltar
+  </button>
+</div>
   );
 }
 
