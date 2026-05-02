@@ -105,7 +105,7 @@ html, body, #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: white; /* Corrigido para branco conforme Imagem 2 */
+  background-color: white; 
 }
 
 .dashboard-header {
@@ -280,75 +280,111 @@ html, body, #root {
 }
 
 .material-symbols-outlined { color: white; }
+
 /* ========================================= */
-/* SAQUE E DEPÓSITO (ESTILO ORIGINAL)        */
+/* SAQUE E DEPÓSITO (ESTILO ORIGINAL CORRIGIDO)*/
 /* ========================================= */
 
 .balance {
+  background-color: #01368B;
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #01368B;
+  padding: 15px 30px;
   color: white;
-  padding: 15px 25px;
-  border-radius: 10px;
-  font-size: 18px;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 .notes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-  margin-top: 20px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Organiza em 4 colunas como no Figma */
+  gap: 30px;
+  width: 100%;
+  justify-items: center;
 }
 
 .note-card {
-  background-color: #4F76B3;
-  color: white;
-  padding: 20px;
-  border-radius: 15px;
-  width: 140px;
-  text-align: center;
-  box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
-}
-
-.note {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.counter {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
+}
+
+.note {
+  background-color: #4F76B3; /* Volta o azul da cédula */
+  width: 160px;
+  height: 90px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Detalhe da cédula */
+.note::before {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border: 4px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+
+.counter {
+  background-color: #002884; /* Azul escuro do DevBank */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 160px;
+  padding: 8px 20px;
+  border-radius: 10px;
+  color: white;
 }
 
 .counter button {
-  padding: 6px 12px;
+  background: none; /* Tira o fundo preto */
   border: none;
-  border-radius: 6px;
-  background-color: #003B73;
   color: white;
+  font-size: 20px;
   cursor: pointer;
   font-weight: bold;
 }
 
 .actions {
-  margin-top: 30px;
+  margin-top: 50px; /* Aumenta o espaço acima dos botões */
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 40px; /* Aumenta o espaço entre Voltar e Confirmar */
+  width: 100%;
 }
 
 .actions button {
-  padding: 12px 40px;
-  background-color: #003B73;
+  padding: 15px 60px;
+  background-color: #003B73; /* Azul padrão Mauá */
   color: white;
   border: none;
-  border-radius: 30px;
+  border-radius: 40px;
   font-weight: bold;
   cursor: pointer;
+  font-size: 18px;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Correção específica para o botão de voltar preto no header */
+.btn-back-header, .grupo-esquerda-header button {
+  background-color: #003B73 !important; /* Força a cor certa */
+  border-radius: 8px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

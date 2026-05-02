@@ -9,13 +9,22 @@ interface Usuario {
   current_balance: number;
 }
 
+interface Transacao {
+  tipo: string;
+  valor: number;
+  data: string;
+  saldoApos: number;
+}
+
 function App() {
   const [tela, setTela] = useState<'config' | 'conta' | 'extrato' | 'saque' | 'deposito'>('config');
   const [apiUrl, setApiUrl] = useState('');
   const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [historico, setHistorico] = useState<Transacao[]>([]);
 
   const notas: number[] = [2, 5, 10, 20, 50, 100, 200];
 
+  // Mantendo a lógica de Qtd do seu grupo
   const [qtd, setQtd] = useState<Record<number, number>>(
     Object.fromEntries(notas.map((n) => [n, 0]))
   );
@@ -40,10 +49,38 @@ function App() {
     }
   };
 
+  // Função para processar a operação (Ajustando para salvar no histórico e saldo)
+  const realizarOperacao = (tipo: 'Saque' | 'Depósito') => {
+    if (total <= 0) return;
+    if (!usuario) return;
+
+    if (tipo === 'Saque' && total > usuario.current_balance) {
+      alert("Saldo insuficiente!");
+      return;
+    }
+
+    const novoSaldo = tipo === 'Depósito' 
+      ? usuario.current_balance + total 
+      : usuario.current_balance - total;
+
+    const novaTransacao: Transacao = {
+      tipo: tipo === 'Depósito' ? 'Depósito' : 'Saque',
+      valor: total,
+      data: new Date().toLocaleString('pt-BR'),
+      saldoApos: novoSaldo
+    };
+
+    // Atualiza os dados 
+    setUsuario({ ...usuario, current_balance: novoSaldo });
+    setHistorico([novaTransacao, ...historico]);
+    setQtd(Object.fromEntries(notas.map((n) => [n, 0]))); // Reseta as quantidades
+    setTela('conta');
+  };
+
   return (
     <div className="pagina-fundo-azul">
       
-      {/* TELA 1 */}
+      {/* TELA 1: CONFIGURAÇÃO */}
       {tela === 'config' && (
         <div className="container-config">
           <h1 className="logo-main">DevBank</h1>
@@ -64,14 +101,14 @@ function App() {
         </div>
       )}
 
-      {/* TELA 2 */}
-      {tela === 'conta' && (
+      {/* CABEÇALHO PADRÃO (Aparece nas telas internas) */}
+      {(tela === 'conta' || tela === 'extrato' || tela === 'saque' || tela === 'deposito') && (
         <div className="dashboard-container">
           <header className="dashboard-header">
             <div className="header-content">
               <div className="grupo-esquerda-header">
-                <button onClick={() => setTela('config')}>
-                  ←
+                <button className="btn-back-header" onClick={() => setTela(tela === 'conta' ? 'config' : 'conta')}>
+                  <span className="material-symbols-outlined">arrow_back</span>
                 </button>
                 <h1 className="logo-dashboard">DevBank</h1>
               </div>
@@ -85,123 +122,90 @@ function App() {
           </header>
 
           <main className="dashboard-main">
-            <div className="barra-pergunta">
-              <p className="txt-pergunta">O que deseja fazer?</p>
-              <div className="card-saldo-horizontal">
-                Saldo Atual: R$ {usuario?.current_balance?.toLocaleString('pt-BR') || '0,00'}
-              </div>
-            </div>
-
-            <div className="grid-cards-verticais">
-              <div className="card-acao-vertical" onClick={() => setTela('deposito')}>
-                <p>Depositar</p>
-              </div>
-
-              <div className="card-acao-vertical" onClick={() => setTela('saque')}>
-                <p>Sacar</p>
-              </div>
-
-              <div className="card-acao-vertical" onClick={() => setTela('extrato')}>
-                <p>Transações</p>
-              </div>
-            </div>
-          </main>
-        </div>
-      )}
-
-      {/* TELA 3 */}
-      {tela === 'extrato' && (
-        <div className="dashboard-container">
-          <div className="transactions">
-
-            <div className="card">
-              <div className="card-header">Saque</div>
-              <div className="card-body">
-                <p>Valor: R$ 200,00</p>
-              </div>
-            </div>
-
-            <div className="card">
-              <div className="card-header">Depósito</div>
-              <div className="card-body">
-                <p>Valor: R$ 500,00</p>
-              </div>
-            </div>
-
-            <button onClick={() => setTela('conta')}>
-              Voltar
-            </button>
-
-          </div>
-        </div>
-      )}
-
-      {/* SAQUE */}
-      {tela === 'saque' && (
-        <div className="dashboard-container">
-          <main className="dashboard-main">
-
-            <div className="balance">
-              <span>Saldo Atual: R$ {usuario?.current_balance ?? 0}</span>
-              <span>Total saque: R$ {total}</span>
-            </div>
-
-            <div className="notes">
-              {notas.map((note) => (
-                <div key={note} className="note-card">
-                  <div className="note">R${note}</div>
-
-                  <div className="counter">
-                    <button onClick={() => alterar(note, -1)}>-</button>
-                    <span>{qtd[note]}</span>
-                    <button onClick={() => alterar(note, 1)}>+</button>
+            {/* TELA 2: MENU PRINCIPAL */}
+            {tela === 'conta' && (
+              <>
+                <div className="barra-pergunta">
+                  <p className="txt-pergunta">O que deseja fazer?</p>
+                  <div className="card-saldo-horizontal">
+                    Saldo Atual: R$ {usuario?.current_balance?.toLocaleString('pt-BR')}
                   </div>
                 </div>
-              ))}
-            </div>
 
-            <div className="actions">
-              <button onClick={() => setTela('conta')}>Voltar</button>
-              <button>Sacar</button>
-            </div>
+                <div className="grid-cards-verticais">
+                  <div className="card-acao-vertical" onClick={() => setTela('deposito')}>
+                    <span className="material-symbols-outlined icone-grande">payments</span>
+                    <p>Depositar</p>
+                  </div>
 
-          </main>
-        </div>
-      )}
+                  <div className="card-acao-vertical" onClick={() => setTela('saque')}>
+                    <span className="material-symbols-outlined icone-grande">savings</span>
+                    <p>Sacar</p>
+                  </div>
 
-      {/* DEPÓSITO */}
-      {tela === 'deposito' && (
-        <div className="dashboard-container">
-          <main className="dashboard-main">
-
-            <div className="balance">
-              <span>Saldo Atual: R$ {usuario?.current_balance ?? 0}</span>
-              <span>Total depósito: R$ {total}</span>
-            </div>
-
-            <div className="notes">
-              {notas.map((note) => (
-                <div key={note} className="note-card">
-                  <div className="note">R${note}</div>
-
-                  <div className="counter">
-                    <button onClick={() => alterar(note, -1)}>-</button>
-                    <span>{qtd[note]}</span>
-                    <button onClick={() => alterar(note, 1)}>+</button>
+                  <div className="card-acao-vertical" onClick={() => setTela('extrato')}>
+                    <span className="material-symbols-outlined icone-grande">history</span>
+                    <p>Transações</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </>
+            )}
 
-            <div className="actions">
-              <button onClick={() => setTela('conta')}>Voltar</button>
-              <button>Depositar</button>
-            </div>
+            {/* TELA 3: HISTÓRICO (EXTRATO) */}
+            {tela === 'extrato' && (
+              <div className="transactions">
+                <div className="barra-pergunta" style={{width: '100%', marginBottom: '20px'}}>
+                  <p className="txt-pergunta">Histórico de Transações</p>
+                  <div className="card-saldo-horizontal">Saldo: R$ {usuario?.current_balance.toLocaleString('pt-BR')}</div>
+                </div>
+                
+                {historico.map((t, i) => (
+                  <div className="card" key={i}>
+                    <div className="card-header">{t.tipo}</div>
+                    <div className="card-body">
+                      <p><strong>Valor:</strong> R$ {t.valor} | <strong>Data:</strong> {t.data} | <strong>Saldo:</strong> R$ {t.saldoApos}</p>
+                    </div>
+                  </div>
+                ))}
+                
+                <button className="back-button" onClick={() => setTela('conta')}>Voltar</button>
+              </div>
+            )}
 
+            {/* TELAS DE SAQUE E DEPÓSITO */}
+            {(tela === 'saque' || tela === 'deposito') && (
+              <div className="transactions" style={{backgroundColor: 'transparent', padding: '0'}}>
+                <div className="balance">
+                  <p className="txt-pergunta">Saldo Total: R$ {usuario?.current_balance}</p>
+                  <div className="card-saldo-horizontal">
+                    Quantidade {tela}: R$ {total}
+                  </div>
+                </div>
+
+                <div className="notes">
+                  {notas.map((note) => (
+                    <div key={note} className="note-card">
+                      <div className="note"><span>R${note}</span></div>
+                      <div className="counter">
+                        <button onClick={() => alterar(note, -1)}>-</button>
+                        <span>{qtd[note]}</span>
+                        <button onClick={() => alterar(note, 1)}>+</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="actions">
+                  <button onClick={() => setTela('conta')}>Voltar</button>
+                  <button onClick={() => realizarOperacao(tela === 'saque' ? 'Saque' : 'Depósito')}>
+                    Confirmar {tela === 'saque' ? 'Saque' : 'Depósito'}
+                  </button>
+                </div>
+              </div>
+            )}
           </main>
         </div>
       )}
-
     </div>
   );
 }
