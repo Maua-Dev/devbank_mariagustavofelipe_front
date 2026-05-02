@@ -205,5 +205,5 @@ function App() {
     </div>
   );
 }
-git add .
+
 export default App;
