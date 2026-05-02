@@ -224,24 +224,27 @@ function App() {
           </header>
           
             <div className="transactions">
-  {transacoes.length === 0 ? (
-    <p>Nenhuma transação ainda</p>
-  ) : (
-    transacoes.map((t, index) => (
-      <div className="card" key={index}>
-        <div className="card-header">
-          {t.tipo === "Saque" ? "Saque 🐷" : "Depósito 💵"}
-        </div>
-        <div className="card-body">
-          <p>
-            <strong>Valor:</strong> R$ {t.valor.toFixed(2)} <br />
-            <strong>Data:</strong> {t.data} <br />
-            <strong>Saldo:</strong> R$ {usuario?.current_balance.toLocaleString("pt-BR")}
-          </p>
-        </div>
-      </div>
-    ))
-  )}
+  <div className="card">
+    <div className="card-header">Saque 🐷</div>
+    <div className="card-body">
+      <p>
+        <strong>Valor:</strong> R$ 200,00 
+        <strong>Data:</strong> 18-03-2026 / 15:30:00 
+        <strong>Saldo:</strong> R$ {usuario?.current_balance.toLocaleString('pt-BR')}
+      </p>
+    </div>
+  </div>
+
+  <div className="card">
+    <div className="card-header">Depósito 💵</div>
+    <div className="card-body">
+      <p>
+        <strong>Valor:</strong> R$ 500,00 
+        <strong>Data:</strong> 18-03-2026 / 15:30:00 
+        <strong>Saldo:</strong> R$ {usuario?.current_balance.toLocaleString('pt-BR')}
+      </p>
+    </div>
+  </div>
 
   <button className="back-button" onClick={() => setTela('conta')}>
     Voltar
